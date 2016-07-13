@@ -77,13 +77,13 @@ app.post('/webhook/', function (req, res) {
 			}
 				sendTextMessage(sender, "BotKid: Mình mới được sinh ra, còn nhỏ dại. Chỉ có vài chức năng cơ bản, bạn thông cảm và có thể xem hướng dẫn ở link bên dưới");
 				sendSupportMessage(sender, text);
+				sendGuideMessage(sender, text);	
 				continue;
 		}
 		if (event.postback) {
 			let text = JSON.stringify(event.postback);
 			let str = text.length; 
 			sendTextMessage(sender, "Mô tả chi tiết: "+text.substring(11,str-2), token);
-			sendGuideMessage(sender,text);
 			continue;
 		}
 	}
@@ -127,7 +127,7 @@ function sendGenericMessage(sender) {
 					"image_url": "http://messengerdemo.parseapp.com/img/rift.png",
 					"buttons": [{
 						"type": "web_url",
-						"url": "http://mobigo.vn/",
+						"url": "https://www.messenger.com/",
 						"title": "Link here"
 					}, {
 						"type": "postback",
@@ -326,7 +326,7 @@ function sendSupportMessage(sender, text) {
 //Guide message
 function sendGuideMessage (sender, text){
 		let messageData = {text :"Để xem các loại tai nghe, xin gõ: 'headphone'"+ "\n"+ "Để xem các quán ăn ngon, xin gõ: 'foody'"+ "\n"+ "Để xem thông tin thời tiết, xin gõ: 'weather'"
-								+ "\n" + "Để xem thông tin của AD đập chai, vui lòng click link fb phía trên. keke"};
+								+ "\n" + "Để xem thông tin của AD đập chai, vui lòng click link bên dươi. keke"};
 	request({
 		url: 'https://graph.facebook.com/v2.6/me/messages',
 		qs: {access_token:token},
