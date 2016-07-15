@@ -42,40 +42,50 @@ app.post('/webhook/', function (req, res) {
 			let str3 = str.indexOf('m la');
 			let str4 = str.indexOf('mi la');
 			let str5 = str.indexOf('mày là');
-			let str6 = str.indexOf('hi');
-			let str7 = str.indexOf('chào');
-			let str8 = str.indexOf('ngu');
-			let str9 = str.indexOf('dm');
-			let str10 = str.indexOf('dmm');
-			let str11 = str.indexOf('fuck');
-			let str12 = str.indexOf('vl');
-			let str13 = str.indexOf('thời tiết');
-			let str14 = str.indexOf('trời hôm nay');
-			let str15 = str.indexOf('ăn gì');
-			let str16 = str.indexOf('co gi an');
-			let str17 = str.indexOf('co gi ngon');
-			let str18 = str.indexOf('món ăn');
+			let str6 = str.indexOf('alo');
+			let str7 = str.indexOf('Alo');
+			let str8 = str.indexOf('hi');
+			let str9 = str.indexOf('Hi');
+			let str10 = str.indexOf('chào');
+			let str11 = str.indexOf('chao');
+			let str12 = str.indexOf('Chào bạn');
+			let str13= str.indexOf('Chao ban');
+			let str14 = str.indexOf('ngu');
+			let str15 = str.indexOf('dm');
+			let str16 = str.indexOf('dmm');
+			let str17 = str.indexOf('fuck');
+			let str18 = str.indexOf('vl');
+			let str19 = str.indexOf('thời tiết');
+			let str20 = str.indexOf('trời hôm nay');
+			let str21 = str.indexOf('ăn gì');
+			let str22 = str.indexOf('co gi an');
+			let str23 = str.indexOf('co gi ngon');
+			let str24 = str.indexOf('món ăn');
 			if (text === 'headphone') {
 				sendGenericMessage(sender);
 				continue;
 			}
-			else if (str0 != -1 || str1 != -1 || str2 != -1 || str3 != -1 || str4 != -1 || str5 != -1 || str6 != -1 || str7 != -1 ) {
+			else if (str6 != -1 || str7 != -1 || str8 != -1 || str9 != -1 || str10 != -1 || str11 != -1 || str12 != -1 || str13 != -1){
+				sendSayHelloMessage(sender, txt);
+				continue;
+			}
+			else if (str0 != -1 || str1 != -1 || str2 != -1 || str3 != -1 || str4 != -1 || str5 != -1) {
 				sendAdMessage(sender,txt);
 				continue;
 			}
-			else if (str8 != -1 || str9 != -1 || str10 != -1 || str11 != -1 || str12 != -1){
+			else if (str14 != -1 || str15 != -1 || str16 != -1 || str17 != -1 || str18 != -1){
 				sendFuckMessage(sender, txt);
 				continue;
 			}
-			else if (str13 != -1 || str14 != -1 || str === 'weather'){
+			else if (str19 != -1 || str20 != -1 || str === 'weather'){
 				sendWeatherMessage(sender);
 				continue;
 			}
-			else if (str15 != -1 || str16 != -1 || str17 != -1 || str18 != -1 || str === 'foody'){
+			else if (str21 != -1 || str22 != -1 || str23 != -1 || str24 != -1 || str === 'foody'){
 				sendFoodMessage(sender);	
 				continue;
 			}
-				sendTextMessage(sender, "BotKid: Mình mới được sinh ra, còn nhỏ dại. Chỉ có vài chức năng cơ bản, bạn thông cảm và có thể xem hướng dẫn ở link bên dưới");
+				sendTextMessage(sender, "BotKid: Mình mới được sinh ra, còn ngây thơ :D. Chỉ có vài chức năng cơ bản, bạn thông cảm và có thể xem hướng dẫn ở bên dưới");
 				sendSupportMessage(sender, text);
 				sendGuideMessage(sender, text);	
 				continue;
@@ -147,6 +157,25 @@ function sendGenericMessage(sender) {
 			}
 		}
 	};
+	request({
+		url: 'https://graph.facebook.com/v2.6/me/messages',
+		qs: {access_token:token},
+		method: 'POST',
+		json: {
+			recipient: {id:sender},
+			message: messageData,
+		}
+	}, function(error, response, body) {
+		if (error) {
+			console.log('Error sending messages: ', error);
+		} else if (response.body.error) {
+			console.log('Error: ', response.body.error);
+		}
+	});
+}
+//send message xin chao
+function sendSayHelloMessage (sender, text){
+		let messageData = {text :"Chào bạn :)"};
 	request({
 		url: 'https://graph.facebook.com/v2.6/me/messages',
 		qs: {access_token:token},
