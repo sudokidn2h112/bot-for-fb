@@ -35,68 +35,73 @@ app.post('/webhook/', function (req, res) {
 		if (event.message && event.message.text) {
 			let text = event.message.text;
 			let txt = text.substr(0,200);
-			let str = text.toLowerCase();
-			console.log('day la text: ', +text);
-			console.log('day la txt: ', +txt);
-			console.log('day la str: ', +str);
-			let str0 = str.indexOf('hoang');
-			let str1 = str.indexOf('ad la');
-			let str2 = str.indexOf('bot la');
-			let str3 = str.indexOf('m la');
-			let str4 = str.indexOf('mi la');
-			let str5 = str.indexOf('hello');
-			let str6 = str.indexOf('alo');
-			let str7 = str.indexOf('xin chào');
-			let str8 = str.indexOf('hi');
-			let str9 = str.indexOf('xin chao');
-			let str10 = str.indexOf("chào");
-			let str11 = str.indexOf('chao');
-			let str12 = str.indexOf('chào bạn');
-			let str13 = str.indexOf('chao ban');
-			let str14 = str.indexOf('ngu');
-			let str15 = str.indexOf('dm');
-			let str16 = str.indexOf('dmm');
-			let str17 = str.indexOf('fuck');
-			let str18 = str.indexOf('vl');
-			let str19 = str.indexOf('thời tiết');
-			let str20 = str.indexOf('trời hôm nay');
-			let str21 = str.indexOf('ăn gì');
-			let str22 = str.indexOf('co gi an');
-			let str23 = str.indexOf('co gi ngon');
-			let str24 = str.indexOf('món ăn');
-			if (text === 'headphone') {
-				sendGenericMessage(sender);
-				continue;
-			}
-			else if (str6 != -1 || str7 != -1 || str8 != -1 || str9 != -1 || str10 != -1 || str11 != -1 || str12 != -1 || str13 != -1 || str == 'chào bạn'){
+			let string = text.toLowerCase();
+			let str = delToken(string);
+			let str0 = str.indexOf('hi');
+			let str1 = str.indexOf('hello');
+			let str2 = str.indexOf('xin chao');
+			let str3 = str.indexOf('chao');
+			let str4 = str.indexOf('alo');
+			let str5 = str.indexOf('may la');
+			let str6 = str.indexOf('mi la');
+			let str7 = str.indexOf('bot la');
+			let str8 = str.indexOf('ad la');
+			let str9 = str.indexOf('bot ten');
+			let str10 = str.indexOf('fuck');
+			let str11 = str.indexOf('dm');
+			let str12 =	string.indexOf('ngu');
+			let str13 = string.indexOf('dốt');
+			let str14 = str.indexOf('vl');
+			let str15 = str.indexOf('thoi tiet');
+			let str16 = str.indexOf('nhiet do');
+			let str17 = str.indexOf('nang nong');
+			let str18 = string.indexOf('mưa');
+			let str19 = string.indexOf('trời');
+			let str20 =	str.indexOf('an gi');
+			let str21 = str.indexOf('mon gi');
+			let str22 = str.indexOf('mon chi');
+			let str23 = str.indexOf('an chi');
+			let str24 = str.indexOf('quan nao');
+			let str25 = str.indexOf('quan mo');
+			if (str0 != -1 || str1 != -1 || str2 != -1 || str3 != -1 || str4 != -1){
 				sendSayHelloMessage(sender, txt);
 				continue;
 			}
-			else if (str0 != -1 || str1 != -1 || str2 != -1 || str3 != -1 || str4 != -1 || str5 != -1) {
+			else if (str5 != -1 || str6 != -1 || str7 != -1 || str8 != -1 || str9 != -1 ) {
 				sendAdMessage(sender,txt);
 				continue;
 			}
-			else if (str14 != -1 || str15 != -1 || str16 != -1 || str17 != -1 || str18 != -1){
+			else if (str10 != -1 || str11 != -1 || str12 != -1 || str13 != -1 || str14 != -1){
 				sendFuckMessage(sender, txt);
 				continue;
 			}
-			else if (str19 != -1 || str20 != -1 || str === 'weather'){
+			else if (str15 != -1 || str16 != -1 || str17 != -1 || str18 != -1 || str19 != -1 || str === 'weather'){
 				sendWeatherMessage(sender);
 				continue;
 			}
-			else if (str21 != -1 || str22 != -1 || str23 != -1 || str24 != -1 || str === 'foody'){
+			else if (str20 != -1 ||str21 != -1 || str22 != -1 || str23 != -1 || str24 != -1 || str25 != -1 || str === 'foody'){
 				sendFoodMessage(sender);	
+				continue;
+			}
+			else if (text === 'headphone') {
+				sendGenericMessage(sender);
 				continue;
 			}
 				sendTextMessage(sender, "BotKid: Mình mới được sinh ra, còn ngây thơ :D. Chỉ có vài chức năng cơ bản, bạn thông cảm và có thể xem hướng dẫn ở bên dưới");
 				sendSupportMessage(sender, text);
-				sendGuideMessage(sender, text);	
+				//sendGuideMessage(sender, text);	
 				continue;
 		}
 		if (event.postback) {
 			let text = JSON.stringify(event.postback);
 			let str = text.length; 
-			sendTextMessage(sender, "Mô tả chi tiết: "+text.substring(11,str-2), token);
+			let textsup = "Rất vui được chào đón bạn đến với Bot cu teo ^^! Mời bạn xem hướng dẫn phía trên!";
+			let sup =text.substr(12,88);
+			console.log('day la gi the : ' +sup);
+			sendTextMessage(sender, "Mô tả chi tiết: "+text.substring(11,str-1), token);
+			if(sup === textsup){
+				sendGuideMessage(sender, text);
+			}
 			continue;
 		}
 	}
@@ -233,7 +238,7 @@ function sendFuckMessage (sender, text){
 		}
 	});
 }
-//thoi tiet
+//weather
 function sendWeatherMessage(sender) {
 	let messageData = {
 		"attachment": {
@@ -274,7 +279,7 @@ function sendWeatherMessage(sender) {
 	});
 }
 
-//search eating
+//search food
 function sendFoodMessage(sender) {
 	let messageData = {
 		"attachment": {
@@ -353,12 +358,12 @@ function sendSupportMessage(sender, text) {
 		} else if (response.body.error) {
 			console.log('Error: ', response.body.error);
 		}
-	});
+	}); 
 }
 //Guide message
 function sendGuideMessage (sender, text){
-		let messageData = {text :"Để xem các loại tai nghe, xin gõ: 'headphone'"+ "\n"+ "Để xem các quán ăn ngon, xin gõ: 'foody'"+ "\n"+ "Để xem thông tin thời tiết, xin gõ: 'weather'"
-								+ "\n" + "Để xem thông tin của AD đập chai, vui lòng click link bên dươi. keke"};
+		let messageData = {text :"Hướng dẫn dùng BotKid:" +"\n" +"1. Để xem các loại tai nghe, xin gõ: 'headphone'"+ "\n"+  "2. Để xem các quán ăn ngon, xin gõ: 'foody'"+ "\n"+ "3. Để xem thông tin thời tiết, xin gõ: 'weather'"
+								+ "\n" + "4. Để xem thông tin của AD đập chai, vui lòng click link bên dươi. keke"};
 	request({
 		url: 'https://graph.facebook.com/v2.6/me/messages',
 		qs: {access_token:token},
@@ -367,15 +372,20 @@ function sendGuideMessage (sender, text){
 			recipient: {id:sender},
 			message: messageData,
 		}
-	}, function(error, response, body) {
-		if (error) {
-			console.log('Error sending messages: ', error);
-		} else if (response.body.error) {
-			console.log('Error: ', response.body.error);
-		}
 	});
 }
-
+// declare funtion del mark
+ function delToken(str) {
+        str = str.toLowerCase();
+        str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
+        str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+        str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
+        str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
+        str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
+        str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
+        str = str.replace(/đ/g, "d");
+        return str;
+}
 // spin spin sugar
 app.listen(app.get('port'), function() {
 	console.log('running on port', app.get('port'));
