@@ -35,21 +35,24 @@ app.post('/webhook/', function (req, res) {
 		if (event.message && event.message.text) {
 			let text = event.message.text;
 			let txt = text.substr(0,200);
-			let str = txt.toLowerCase();
+			let str = text.toLowerCase();
+			console.log('day la text: ', +text);
+			console.log('day la txt: ', +txt);
+			console.log('day la str: ', +str);
 			let str0 = str.indexOf('hoang');
 			let str1 = str.indexOf('ad la');
 			let str2 = str.indexOf('bot la');
 			let str3 = str.indexOf('m la');
 			let str4 = str.indexOf('mi la');
-			let str5 = str.indexOf('mày là');
+			let str5 = str.indexOf('hello');
 			let str6 = str.indexOf('alo');
-			let str7 = str.indexOf('Alo');
+			let str7 = str.indexOf('xin chào');
 			let str8 = str.indexOf('hi');
-			let str9 = str.indexOf('Hi');
-			let str10 = str.indexOf('chào');
+			let str9 = str.indexOf('xin chao');
+			let str10 = str.indexOf("chào");
 			let str11 = str.indexOf('chao');
-			let str12 = str.indexOf('Chào bạn');
-			let str13= str.indexOf('Chao ban');
+			let str12 = str.indexOf('chào bạn');
+			let str13 = str.indexOf('chao ban');
 			let str14 = str.indexOf('ngu');
 			let str15 = str.indexOf('dm');
 			let str16 = str.indexOf('dmm');
@@ -65,7 +68,7 @@ app.post('/webhook/', function (req, res) {
 				sendGenericMessage(sender);
 				continue;
 			}
-			else if (str6 != -1 || str7 != -1 || str8 != -1 || str9 != -1 || str10 != -1 || str11 != -1 || str12 != -1 || str13 != -1){
+			else if (str6 != -1 || str7 != -1 || str8 != -1 || str9 != -1 || str10 != -1 || str11 != -1 || str12 != -1 || str13 != -1 || str == 'chào bạn'){
 				sendSayHelloMessage(sender, txt);
 				continue;
 			}
@@ -321,7 +324,7 @@ function sendSupportMessage(sender, text) {
 				"template_type": "generic",
 				"elements": [{
 					"title": "Support for you",
-					"subtitle": "Khen ai hiếp zú, ế nhầm...Can i help you? ^^",
+					"subtitle": "Khen ai hiếp zu, ế nhầm...Can i help you? ^^",
 					"image_url": "http://usaremote.com/wp/wp-content/uploads/2015/06/Technical-support-scams.jpg",
 					"buttons": [{
 						"type": "web_url",
@@ -330,7 +333,7 @@ function sendSupportMessage(sender, text) {
 					},{
 						"type": "postback",
 						"title": "Detail Support",
-						"payload":"Rất vui được chào đón bạn đến với Bot cu teo ^^!",
+						"payload":"Rất vui được chào đón bạn đến với Bot cu teo ^^! Mời bạn xem hướng dẫn phía trên!",
 					}]
 				}]
 			}
