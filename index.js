@@ -95,9 +95,8 @@ app.post('/webhook/', function (req, res) {
 		if (event.postback) {
 			let text = JSON.stringify(event.postback);
 			let str = text.length; 
-			let textsup = "Rất vui được chào đón bạn đến với Bot cu teo ^^! Mời bạn xem hướng dẫn phía trên!";
+			let textsup = "Rất vui được chào đón bạn đến với Bot cu teo ^^! Mời bạn xem hướng dẫn phía dưới!";
 			let sup =text.substr(12,88);
-			console.log('day la gi the : ' +sup);
 			sendTextMessage(sender, "Mô tả chi tiết: "+text.substring(11,str-1), token);
 			if(sup === textsup){
 				sendGuideMessage(sender, text);
@@ -338,7 +337,7 @@ function sendSupportMessage(sender, text) {
 					},{
 						"type": "postback",
 						"title": "Detail Support",
-						"payload":"Rất vui được chào đón bạn đến với Bot cu teo ^^! Mời bạn xem hướng dẫn phía trên!",
+						"payload":"Rất vui được chào đón bạn đến với Bot cu teo ^^! Mời bạn xem hướng dẫn phía dưới!",
 					}]
 				}]
 			}
@@ -363,7 +362,7 @@ function sendSupportMessage(sender, text) {
 //Guide message
 function sendGuideMessage (sender, text){
 		let messageData = {text :"Hướng dẫn dùng BotKid:" +"\n" +"1. Để xem các loại tai nghe, xin gõ: 'headphone'"+ "\n"+  "2. Để xem các quán ăn ngon, xin gõ: 'foody'"+ "\n"+ "3. Để xem thông tin thời tiết, xin gõ: 'weather'"
-								+ "\n" + "4. Để xem thông tin của AD đập chai, vui lòng click link bên dươi. keke"};
+								+ "\n" + "4. Để xem thông tin của AD đập chai, vui lòng click link facebook bên trên. keke"};
 	request({
 		url: 'https://graph.facebook.com/v2.6/me/messages',
 		qs: {access_token:token},
