@@ -111,6 +111,23 @@ app.post('/webhook/', function (req, res) {
 // recommended to inject access tokens as environmental variables, e.g.
 // const token = process.env.PAGE_ACCESS_TOKEN
 const token = "EAADypJni9YMBANDguikZChw572tZCLrmTwB0CRcZCPjBE89Vt62WPmZBJRanIbLKx6PRSlb4EzvT0X8dG9Hpx3HrOwgmmPp0gMHDoWnmqUv6kyUZAl9vLZBNl6tM0sojy3QHDdiX2ZCY0nknFej9CumZB5iAT7PGqaifb9CxfZBsGFwZDZD";
+// face detection 
+function detectImage (sender, text){
+	let messageData = {text:text};
+	request({
+  		url: "https://api.projectoxford.ai/vision/v1.0/analyze?visualFeatures=Categories&details=Celebrities", // Thay bằng URL của API
+  		headers: {
+    		"Ocp-Apim-Subscription-Key": "785dec2521414e12ab83b87e735c4b08" // Thay bằng key của bạn
+  				},
+  		method: "POST",
+  		json: true,
+  		body: {
+    			"url": "https://www.google.com.vn/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwjkwcuUuJDOAhXMPY8KHUmTBiEQjRwIBw&url=http%3A%2F%2Fvietbao.vn%2FBong-da%2FShevchenko-da-gianh-Qua-bong-vang%2F20352808%2F309%2F&psig=AFQjCNG2UH-vMCwxfyw8K0evJt-DdXJtAA&ust=1469598764322578"// Thay bằng url của hình ảnh
+  				}
+		}, (err, response, body) => {
+  // Lấy kết quả trong body
+	});
+}
 // send message 
 function sendTextMessage(sender, text) {
 	let messageData = { text:text };
